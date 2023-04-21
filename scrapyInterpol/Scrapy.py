@@ -1,6 +1,6 @@
 from scrapy.filter import FilterCriteria
 
-from playwright.sync_api import sync_playwright,Page
+from playwright.sync_api import sync_playwright,Page,
 
 
 class Scrapy():
@@ -29,7 +29,9 @@ class Scrapy():
                url = "https://www.interpol.int/How-we-work/Notices/View-Yellow-Notices"
                # 'https://www.interpol.int/How-we-work/Notices/View-Yellow-Notices'
                page.goto(url)
-               # central = page.query_selector_all('div.redNoticesList__item');
+               central =  await page.getByRole('textbox').fill('Peter');
+
+               page.query_selector('button.btn').click()
                page_num=0
                page_site = 1
 
