@@ -1,64 +1,67 @@
-import requests
-from notices.filter import FilterCriteria
+from scrapy.filter import FilterCriteria
 
-from config import ConfigProxy
-from bs4 import BeautifulSoup
-
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright,Page
 
 
 class Scrapy():
     __url:str
     __filter: FilterCriteria
-    __ConfP: ConfigProxy
-    def __init__(self, url,proxy):
+    __proxy: str
+    def __init__(self, url,proxy=None):
         self.__url = url
-        self.__ConfP = proxy
+        self.__proxy = proxy
 
-    def read(self):
-       proxy={
-            "http": '10.92.192.51:3128',
-            "https": '10.92.192.51:3128',
-            "ftp": '10.92.192.51:3128'
-       }
-
-       s = requests.Session()
-       r = requests.get(self.__url, proxies= proxy)
-       print(r.cookies)
-
-       if r.status_code == 200:
-           print('or')
-           # print(r.content)
-           soup = BeautifulSoup(r.text,'html.parser')
-           # print(soup.prettify())
-
-           print(soup.find_all('a'))
 
     def test(self):
            with sync_playwright() as p:
+
                proxy_to_use = {
-                   'server': '10.92.192.51:3128'
+                   'server':self.__proxy
                }
-               browser = p.firefox.launch(proxy=proxy_to_use,slow_mo=1000)
+               len(proxy_to_use)
+
+               if self.__proxy==None:
+                   browser = p.firefox.launch(slow_mo=1000)
+               else:
+                   browser = p.firefox.launch(proxy=proxy_to_use, slow_mo=1000)
 
                page = browser.new_page()
                url = "https://www.interpol.int/How-we-work/Notices/View-Yellow-Notices"
                # 'https://www.interpol.int/How-we-work/Notices/View-Yellow-Notices'
                page.goto(url)
-               central = page.query_selector('div.redNoticeItem__labelText');
+               # central = page.query_selector_all('div.redNoticesList__item');
+               page_num=0
+               page_site = 1
 
-               print({'central': central.inner_html()})
-               central.click()
-               print(central.inner_html())
-               href=central.query_selector('a').get_attribute('href')
-               print(f'url: {url}/{href}')
-               central = page.query_selector('li.nextElement')
-               central.click()
-               print(central.inner_html())
-               # print(expect(central).to_have_attribute("href"))
+               page_prev = 0
+               while page_num<=page_site:
+                   central = page.query_selector_all('div.redNoticesList__item');
+                   for cont in central:
+                       print(cont.inner_text())
+                       href = cont.query_selector('a').get_attribute('href')
+                       print(f'id_person {href[1:]} url: {url}/{href}')
+                   page_num = page_site
+                   print(page_num)
+                   central = page.query_selector('li.nextElement')
+                   print (central.as_element())
+                   central.click()
+                   page_site = int(page.query_selector('a.active').inner_text())
+                   print(page_site)
 
-               central = page.query_selector('div.redNoticeItem__labelText');
-               print({'central': central.inner_html()})
-               central = page.query_selector('li.nextElement')
-               print(central.inner_html())
-               browser.close()
+
+
+               # print({'central': central.inner_html()})
+               # central.click()
+               # print(central.inner_html())
+               # href=central.query_selector('a').get_attribute('href')
+               # print(f'url: {url}/{href}')
+               # central = page.query_selector('li.nextElement')
+               # central.click()
+               # print(central.inner_html())
+               # # print(expect(central).to_have_attribute("href"))
+               #
+               # central = page.query_selector('div.redNoticeItem__labelText');
+               # print({'central': central.inner_html()})
+               # central = page.query_selector('li.nextElement')
+               # print(central.inner_html())
+               # browser.close()
