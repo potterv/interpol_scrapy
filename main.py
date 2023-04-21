@@ -1,5 +1,6 @@
 # This is a sample Python script.
 from notices.FactoryYellowNotices import FactoryYellowNotices
+from scrapyInterpol.Scrapy import Scrapy
 
 
 # Press Shift+F10 to execute it or replace it with your code.
@@ -15,22 +16,23 @@ if __name__ == '__main__':
    host ='10.92.192.51:3128'
    # conf = cp.ConfigProxy(host,host,host)
    # print(conf.proxies)
-   # s = Scrapy("https://www.interpol.int/How-we-work/Notices/View-Yellow-Notices",conf)
+   s = Scrapy("https://www.interpol.int/How-we-work/Notices/View-Yellow-Notices",proxy=host)
    # s.read()
-   # s.test()
+   s.test()
    # a_s=AboutSearch(200,43)
    # print(a_s)
 
 
-   factory = FactoryYellowNotices()
-   ip=factory.create_identity_particulars()
-   pd = factory.create_physical_description().interface_physical_description()
-   pd.height=34
-   print(pd.height)
-   idp = ip.interfas_IdentityParticularsr()
-   idp.gender='hkl'
-   print(idp.gender)
-   print(type(ip))
+   # factory = FactoryYellowNotices()
+   # ip=factory.create_identity_particulars()
+   # factory.create_person().interface_person().id_person
+   # pd = factory.create_physical_description().interface_physical_description()
+   # pd.height=34
+   # print(pd.height)
+   # idp = ip.interfas_IdentityParticularsr()
+   # idp.gender='hkl'
+   # print(idp.gender)
+   # print(type(ip))
 
 
 

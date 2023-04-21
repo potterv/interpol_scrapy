@@ -17,6 +17,6 @@ class Details:
     @property
     def languageSpoken(self):
         return self.__languageSpoken
-    @languageSpoken
+    @languageSpoken.setter
     def languageSpoken(self,languageSpoken):
         self.__languageSpoken = languageSpoken
