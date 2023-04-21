@@ -3,8 +3,5 @@ import abc
 
 class AbstractIdentityParticulars(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    def getIdentityParticularsr(self):
-        pass
-
-    def setIdentityParticularsr(self):
+    def interfas_IdentityParticularsr(self):
         pass

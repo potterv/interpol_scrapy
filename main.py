@@ -1,7 +1,5 @@
 # This is a sample Python script.
-from notices.filter import AboutSearch
 from notices.FactoryYellowNotices import FactoryYellowNotices
-from notices.human import Human
 
 
 # Press Shift+F10 to execute it or replace it with your code.
@@ -26,35 +24,15 @@ if __name__ == '__main__':
 
    factory = FactoryYellowNotices()
    ip=factory.create_identity_particulars()
-   ip.interface_identity_particulars()
+   pd = factory.create_physical_description().interface_physical_description()
+   pd.height=34
+   print(pd.height)
+   idp = ip.interfas_IdentityParticularsr()
+   idp.gender='hkl'
+   print(idp.gender)
+   print(type(ip))
 
 
-   class MyNumber:
-       def __init__(self,i,j):
-           self.i=i
-           self.j=j
-
-   class MyNumbers:
-       def __iter__(self,value):
-           self.a = 1
-           return self
-
-       def __next__(self):
-           x = self.a
-           self.a += 1
-           return f'{x}   /   {self}'
-       def __add__(self, other):
-          MyNumbers(other)
 
 
-   # num = MyNumber(3,4)
-   # myclass = MyNumbers(num)
-   #
-   # myiter = iter(myclass)
-   #
-   # print(next(myiter))
-   # print(next(myiter))
-   # print(next(myiter))
-   # print(next(myiter))
-   # print(next(myiter))
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

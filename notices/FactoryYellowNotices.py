@@ -1,7 +1,15 @@
 from notices.AbstractFactoryNotices import AbstractFactoryNotices
-from notices.identityparticulars.IdentityParticulars import IdentityParticulars
+from notices.InterfaceDetails import InterfaceDetails
+from notices.InterfaceIdentityParticular import InterfaceIdentityParticular
+from notices.InterfacePerson import InterfacePerson
+from notices.InterfacePhysicalDescription import InterfacePhysicalDescription
+
 class FactoryYellowNotices(AbstractFactoryNotices):
     def create_identity_particulars(self):
-        return IdentityParticulars()
+        return InterfaceIdentityParticular()
     def create_physical_description(self):
-        pass
+        return InterfacePhysicalDescription()
+    def create_details(self):
+        return InterfaceDetails()
+    def create_person(self):
+        return InterfacePerson()
